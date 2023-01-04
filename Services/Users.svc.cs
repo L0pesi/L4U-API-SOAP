@@ -30,7 +30,7 @@ namespace L4U_API_SOAP.Services
         public bool AddNewUser(User user)
         {
 
-            if (user == null || string.IsNullOrEmpty(user.UserName)) return false; //checks if obj is null
+            if (user == null || string.IsNullOrEmpty(user.Email)) return false; //checks if obj is null
 
             try
             {
