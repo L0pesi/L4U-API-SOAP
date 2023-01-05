@@ -38,9 +38,9 @@ namespace L4U_API_SOAP.Services
                 {
                     //conn.Open();
                     string addUser = "INSERT INTO Users " +
-                        "(FirstName, LastName, Email, Username, City) " +
+                        "(FirstName, LastName, Email, Password) " +
                         "VALUES " +
-                        "(@FirstName,@LastName,@Email,@Username,@City)";
+                        "(@FirstName,@LastName,@Email,@Password)";
                     using (SqlCommand cmd = new SqlCommand(addUser))
                     {
 
