@@ -150,20 +150,19 @@ To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
+Here are the Pre-requisites for the API:
+* Free will
   ```sh
-  npm install npm@latest -g
+  Free Will and clear mind
   ```
 
 ### Installation
 
-_Below is an example of how you can instruct your audience on installing and setting up your app._
+_Below is an instruct on installing and setting up your app._
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+1. Clone the repo
    ```sh
-   git clone https://github.com/your_username_/Project-Name.git
+   git clone https://github.com/L0pesi/L4U-API-SOAP.git
    ```
 3. Install 
    ```
