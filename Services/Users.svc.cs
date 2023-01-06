@@ -7,6 +7,8 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
 using L4U_API_SOAP.SoapModels;
+using System.Web.Services;
+using System.Threading.Tasks;
 
 namespace L4U_API_SOAP.Services
 {
@@ -84,7 +86,70 @@ namespace L4U_API_SOAP.Services
         /// <returns></returns>        
         public List<User> GetAllUsers()
         {
-            throw new NotImplementedException();
+
+            try
+            {
+                SqlConnection conn = new SqlConnection(connectString);
+
+                string updateLocker = "SELECT * FROM users";
+                SqlCommand cmd = new SqlCommand(updateLocker);
+
+
+                cmd.Connection = conn;
+                conn.Open();
+                // Execute the command and get the data
+                SqlDataReader reader = cmd.ExecuteReader();
+                List<User> users = new List<User>();
+                while (reader.Read())
+                {
+                    User user = new User();
+                    user.Id = reader.GetString(0);
+                    user.FirstName = reader.GetString(1);
+                    user.LastName = reader.GetString(2);
+                    user.Email = reader.GetString(3);
+                    user.Password = reader.GetString(4);
+                    users.Add(user);
+                }
+
+                return users;
+
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+
         }
+
+
+
+        /// <summary>
+        /// Method that deletes a user from the db
+        /// </summary>
+        /// <param name="user"></param>
+        public void DeleteUser(User user)
+        {
+
+            using (SqlConnection conn = new SqlConnection(connectString))
+            {
+                conn.Open();
+                string deleteUser = "Delete from users where id=@Id";
+                using (SqlCommand cmd = new SqlCommand(deleteUser))
+                {
+                    cmd.Connection = conn;
+
+                    cmd.Parameters.Add("@Id", SqlDbType.NVarChar).Value = user.Id;
+                    
+                    int result = cmd.ExecuteNonQuery();
+                    conn.Close();
+                    
+
+                }
+            }
+        }
+            
+         
+
+
     }
 }

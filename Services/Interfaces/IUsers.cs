@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
+using System.Threading.Tasks;
 using L4U_API_SOAP.SoapModels;
 
 namespace L4U_API_SOAP.Services
@@ -29,6 +30,15 @@ namespace L4U_API_SOAP.Services
         /// <returns></returns>
         [OperationContract]
         List<User> GetAllUsers();
+
+
+        /// <summary>
+        /// Deletes a User from the database
+        /// </summary>
+        /// <param name="user"></param>
+        [OperationContract]
+        void DeleteUser(User user);
+
 
 
         #region To implement
