@@ -37,7 +37,7 @@ namespace L4U_API_SOAP.Services
         /// </summary>
         /// <param name="user"></param>
         [OperationContract]
-        void DeleteUser(User user);
+        bool DeleteUser(User user);
 
 
 

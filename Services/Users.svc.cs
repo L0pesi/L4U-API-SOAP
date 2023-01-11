@@ -127,28 +127,80 @@ namespace L4U_API_SOAP.Services
         /// Method that deletes a user from the db
         /// </summary>
         /// <param name="user"></param>
-        public void DeleteUser(User user)
+        public bool DeleteUser(User user)
         {
 
-            using (SqlConnection conn = new SqlConnection(connectString))
+            if (user.Id == null) return false; //checks if obj is null
+
+            try
             {
-                conn.Open();
-                string deleteUser = "Delete from users where id=@Id";
-                using (SqlCommand cmd = new SqlCommand(deleteUser))
+                using (SqlConnection conn = new SqlConnection(connectString))
                 {
-                    cmd.Connection = conn;
+                    conn.Open();
+                    string deleteUser = "Delete from users where id=@Id";
+                    using (SqlCommand cmd = new SqlCommand(deleteUser))
+                    {
+                        cmd.Connection = conn;
 
-                    cmd.Parameters.Add("@Id", SqlDbType.NVarChar).Value = user.Id;
-                    
-                    int result = cmd.ExecuteNonQuery();
-                    conn.Close();
-                    
+                        cmd.Parameters.Add("@Id", SqlDbType.NVarChar).Value = user.Id;
 
+                        int result = cmd.ExecuteNonQuery();
+                        conn.Close();
+
+                        return result.Equals(1);
+
+                    }
                 }
+            }
+            catch (Exception e)
+            {
+                throw;
             }
         }
             
-         
+       /* 
+        
+        if (user == null || string.IsNullOrEmpty(user.Email)) return false; //checks if obj is null
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectString))
+                {
+                    //conn.Open();
+                    string addUser = "INSERT INTO Users " +
+                        "(FirstName, LastName, Email, Password) " +
+                        "VALUES " +
+                        "(@FirstName,@LastName,@Email,@Password)";
+                    using (SqlCommand cmd = new SqlCommand(addUser))
+                    {
+
+                        //cmd.CommandType = CommandType.Text;
+
+                        cmd.Connection = conn;
+                        
+                        cmd.Parameters.Add("@FirstName", SqlDbType.NVarChar).Value = user.FirstName;
+                        cmd.Parameters.Add("@LastName", SqlDbType.NVarChar).Value = user.LastName;
+                        cmd.Parameters.Add("@Email", SqlDbType.NVarChar).Value = user.Email;
+                        cmd.Parameters.Add("@Password", SqlDbType.NVarChar).Value = user.Password;
+
+                        conn.Open();
+                        int result = cmd.ExecuteNonQuery();
+    conn.Close();
+
+                        return result.Equals(1);
+
+                    }
+                }
+            }
+            catch (Exception e)
+{
+    throw;
+}
+
+
+        */
+
+
 
 
     }
